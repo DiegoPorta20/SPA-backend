@@ -1,0 +1,211 @@
+{
+  "info": {
+    "name": "API Clientes y Mascotas",
+    "description": "Colección de endpoints para el sistema de gestión de clientes y mascotas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Clientes",
+      "item": [
+        {
+          "name": "Listar todos los clientes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/clientes",
+              "host": ["{{base_url}}"],
+              "path": ["api", "clientes"]
+            }
+          }
+        },
+        {
+          "name": "Obtener cliente por ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/clientes/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "clientes", "1"]
+            }
+          }
+        },
+        {
+          "name": "Crear cliente sin mascotas",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombres\": \"Carlos Alberto\",\n  \"apellidos\": \"Gómez Fernández\",\n  \"dni\": \"99887766\",\n  \"telefono\": \"987654321\",\n  \"email\": \"carlos.gomez@example.com\",\n  \"direccion\": \"Av. Test 123, Lima\",\n  \"estado\": \"activo\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/clientes",
+              "host": ["{{base_url}}"],
+              "path": ["api", "clientes"]
+            }
+          }
+        },
+        {
+          "name": "Crear cliente con mascotas",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombres\": \"Laura Patricia\",\n  \"apellidos\": \"Morales Castillo\",\n  \"dni\": \"55443322\",\n  \"telefono\": \"912345678\",\n  \"email\": \"laura.morales@example.com\",\n  \"direccion\": \"Jr. Las Palmeras 456, San Isidro\",\n  \"estado\": \"activo\",\n  \"mascotas\": [\n    {\n      \"nombre\": \"Toby\",\n      \"especie\": \"Perro\",\n      \"raza\": \"Beagle\",\n      \"edad\": 4,\n      \"peso\": 12.5,\n      \"sexo\": \"macho\",\n      \"estado\": \"activo\"\n    },\n    {\n      \"nombre\": \"Mimi\",\n      \"especie\": \"Gato\",\n      \"raza\": \"Angora\",\n      \"edad\": 2,\n      \"peso\": 3.8,\n      \"sexo\": \"hembra\",\n      \"estado\": \"activo\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/clientes",
+              "host": ["{{base_url}}"],
+              "path": ["api", "clientes"]
+            }
+          }
+        },
+        {
+          "name": "Actualizar cliente y sincronizar mascotas",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombres\": \"Juan Carlos\",\n  \"apellidos\": \"Pérez García\",\n  \"dni\": \"12345678\",\n  \"telefono\": \"987654321\",\n  \"email\": \"juan.updated@example.com\",\n  \"direccion\": \"Av. Principal 123, Lima - Actualizada\",\n  \"estado\": \"activo\",\n  \"mascotas\": [\n    {\n      \"id\": 1,\n      \"nombre\": \"Max Actualizado\",\n      \"especie\": \"Perro\",\n      \"raza\": \"Golden Retriever\",\n      \"edad\": 4,\n      \"peso\": 32.0,\n      \"sexo\": \"macho\",\n      \"estado\": \"activo\"\n    },\n    {\n      \"nombre\": \"Nueva Mascota\",\n      \"especie\": \"Ave\",\n      \"raza\": \"Loro\",\n      \"edad\": 1,\n      \"peso\": 0.8,\n      \"sexo\": \"macho\",\n      \"estado\": \"activo\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/clientes/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "clientes", "1"]
+            }
+          }
+        },
+        {
+          "name": "Eliminar cliente",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/clientes/5",
+              "host": ["{{base_url}}"],
+              "path": ["api", "clientes", "5"]
+            }
+          }
+        },
+        {
+          "name": "Validación - DNI duplicado",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombres\": \"Test\",\n  \"apellidos\": \"Usuario\",\n  \"dni\": \"12345678\",\n  \"estado\": \"activo\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/clientes",
+              "host": ["{{base_url}}"],
+              "path": ["api", "clientes"]
+            }
+          }
+        },
+        {
+          "name": "Validación - Campos requeridos",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"telefono\": \"987654321\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/clientes",
+              "host": ["{{base_url}}"],
+              "path": ["api", "clientes"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    }
+  ]
+}
+
