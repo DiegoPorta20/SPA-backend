@@ -22,7 +22,8 @@ class UpdateClienteRequest extends FormRequest
      */
     public function rules(): array
     {
-        $clienteId = $this->route('cliente');
+        // Obtener el ID del cliente desde la ruta (parámetro 'id')
+        $clienteId = $this->route('id');
 
         return [
             'nombres' => ['required', 'string', 'max:100'],

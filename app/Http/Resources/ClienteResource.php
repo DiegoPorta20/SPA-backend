@@ -33,5 +33,17 @@ class ClienteResource extends JsonResource
             'updated_at' => $this->updated_at?->toISOString(),
         ];
     }
+
+    /**
+     * Customize the response for a resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Response  $response
+     * @return void
+     */
+    public function withResponse($request, $response)
+    {
+        $response->setEncodingOptions(JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    }
 }
 

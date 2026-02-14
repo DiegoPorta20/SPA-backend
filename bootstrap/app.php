@@ -12,7 +12,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Agregar middleware para configurar codificación JSON UTF-8
+        $middleware->api(append: [
+            \App\Http\Middleware\SetJsonEncoding::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
