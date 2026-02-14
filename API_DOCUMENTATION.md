@@ -200,7 +200,30 @@ Base URL: `http://localhost:8000/api`
 ### 1. Listar todos los clientes
 
 ```http
+GET /api/clientes?page={page}&per_page={per_page}&search={search}
+```
+
+**Query Parameters:**
+
+| Parámetro  | Tipo    | Requerido | Default | Descripción                                          |
+|------------|---------|-----------|---------|------------------------------------------------------|
+| `page`     | integer | No        | 1       | Número de página                                     |
+| `per_page` | integer | No        | 15      | Cantidad de registros por página                     |
+| `search`   | string  | No        | ''      | Búsqueda por DNI, nombres, apellidos, email o nombre completo |
+
+**Ejemplos:**
+```bash
+# Listar todos los clientes (página 1, 15 por página)
 GET /api/clientes
+
+# Buscar por DNI
+GET /api/clientes?search=4567
+
+# Buscar por nombre
+GET /api/clientes?search=Juan
+
+# Buscar con paginación personalizada
+GET /api/clientes?page=1&per_page=10&search=María
 ```
 
 **Response: 200 OK**
@@ -237,9 +260,31 @@ GET /api/clientes
       "created_at": "2024-02-12T10:00:00.000000Z",
       "updated_at": "2024-02-12T10:00:00.000000Z"
     }
-  ]
+  ],
+  "links": {
+    "first": "http://localhost:8000/api/clientes?page=1",
+    "last": "http://localhost:8000/api/clientes?page=1",
+    "prev": null,
+    "next": null
+  },
+  "meta": {
+    "current_page": 1,
+    "from": 1,
+    "last_page": 1,
+    "path": "http://localhost:8000/api/clientes",
+    "per_page": 15,
+    "to": 5,
+    "total": 5
+  }
 }
 ```
+
+**Campos de Búsqueda:**
+- ✅ DNI (parcial)
+- ✅ Nombres (parcial)
+- ✅ Apellidos (parcial)
+- ✅ Email (parcial)
+- ✅ Nombre Completo (nombres + apellidos)
 
 ### 2. Obtener un cliente específico
 

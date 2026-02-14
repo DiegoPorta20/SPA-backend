@@ -26,7 +26,10 @@ class ClienteController extends Controller
     public function index(): AnonymousResourceCollection|JsonResponse
     {
         try {
-            $clientes = $this->clienteService->getAllClientes();
+            $perPage = request('per_page', 15);
+            $search = request('search', '');
+
+            $clientes = $this->clienteService->getAllClientes($perPage, $search);
 
             return ClienteResource::collection($clientes);
         } catch (\Exception $e) {

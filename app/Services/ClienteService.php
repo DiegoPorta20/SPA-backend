@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\DTOs\ClienteDTO;
 use App\Models\Cliente;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -16,12 +17,30 @@ class ClienteService
 
     /**
      * Get all clientes with their mascotas
+     * Supports pagination and search by DNI, nombres, apellidos, email
+     *
+     * @param int $perPage Number of items per page
+     * @param string $search Search term
+     * @return LengthAwarePaginator
      */
-    public function getAllClientes(): Collection
+    public function getAllClientes(int $perPage = 15, string $search = ''): LengthAwarePaginator
     {
-        return Cliente::with(['mascotas' => function ($query) {
+        $query = Cliente::with(['mascotas' => function ($query) {
             $query->orderBy('created_at', 'desc');
-        }])->orderBy('created_at', 'desc')->get();
+        }]);
+
+        // Apply search filter if provided
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('dni', 'LIKE', "%{$search}%")
+                    ->orWhere('nombres', 'LIKE', "%{$search}%")
+                    ->orWhere('apellidos', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%")
+                    ->orWhereRaw("CONCAT(nombres, ' ', apellidos) LIKE ?", ["%{$search}%"]);
+            });
+        }
+
+        return $query->orderBy('created_at', 'desc')->paginate($perPage);
     }
 
     /**
