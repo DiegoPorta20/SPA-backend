@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Configurar JsonResource para no escapar caracteres Unicode
+        \Illuminate\Http\Resources\Json\JsonResource::withoutWrapping();
+        \Illuminate\Http\Resources\Json\JsonResource::$wrap = null;
     }
 }
